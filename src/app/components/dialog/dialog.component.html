@@ -1,0 +1,61 @@
+<p-dialog
+  [(visible)]="userDialog"
+  [style]="{width: '450px'}"
+  header="User Details"
+  [modal]="true"
+  styleClass="p-fluid"
+  (onHide)="hideDialog()"
+  >
+  <ng-template pTemplate="content">
+    <div class="p-field user-details-inputs">
+      <label for="firstname">First Name</label>
+      <input type="text" pInputText id="firstname" [(ngModel)]="user.firstname" name="firstname" />
+    </div>
+    <div class="p-field user-details-inputs">
+      <label for="middlename">Middle Name</label>
+      <input type="text" pInputText id="middlename" [(ngModel)]="user.middlename" name="middlename" />
+    </div>
+    <div class="p-field user-details-inputs">
+      <label for="lastname">Last Name</label>
+      <input type="text" pInputText id="lastname" [(ngModel)]="user.lastname" name="lastname" />
+    </div>
+    <div class="p-field user-details-inputs">
+      <label for="username">Username</label>
+      <input type="text" pInputText id="username" [(ngModel)]="user.username" name="username" required />
+      <small class="p-error" *ngIf="!user.username">Username is required.</small>
+    </div>
+    <div class="p-field user-details-inputs">
+      <label for="displayname">Display Name</label>
+      <input type="text" pInputText id="displayname" [(ngModel)]="user.displayname" name="displayname" />
+    </div>
+    <div class="p-field user-details-inputs">
+      <label for="email">Email</label>
+      <input type="email" pInputText id="email" [(ngModel)]="user.email" name="email" required />
+      <small class="p-error" *ngIf="!this.isValidEmail(user.email)">Please enter a valid email address.</small>
+    </div>
+    <div class="p-field">
+      <label for="description">Description</label>
+      <textarea id="description" pInputTextarea [(ngModel)]="user.description" name="description" rows="3" cols="20"></textarea>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-outlined p-button-raised p-button-danger"
+      (click)="hideDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Save"
+      icon="pi pi-check"
+      class="p-button-raised p-button-raised p-button-success"
+      [disabled]="!user.username || !this.isValidEmail(user.email)"
+      (click)="saveUser()"
+    ></button>
+  </ng-template>
+</p-dialog>

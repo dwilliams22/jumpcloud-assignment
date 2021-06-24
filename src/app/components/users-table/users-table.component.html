@@ -1,0 +1,98 @@
+<div style="margin-bottom: 2%;">
+  <p-toolbar styleClass="p-mb-4">
+    <ng-template pTemplate="left">
+      <button
+        pButton
+        pRipple
+        label="New"
+        icon="pi pi-plus"
+        class="p-button-primary p-button-raised p-mr-2"
+        style="margin-right: 3%;"
+        (click)="openNewUserDialog()"
+      ></button>
+      <button
+        pButton
+        pRipple
+        label="Delete"
+        icon="pi pi-trash"
+        class="p-button-danger p-button-raised"
+        (click)="deleteSelectedUsers()"
+        [disabled]="!selectedUsers || !selectedUsers.length"
+      ></button>
+    </ng-template>
+  </p-toolbar>
+</div>
+<p-table
+  #dataTable
+  [autoLayout]="true"
+  [value]="users"
+  [rows]="5"
+  [paginator]="true"
+  [globalFilterFields]="['name']"
+  [(selection)]="selectedUsers"
+  [rowHover]="true" dataKey="id"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [showCurrentPageReport]="true"
+  >
+  <ng-template pTemplate="caption">
+    <div class="p-d-flex p-ai-center p-jc-between">
+      <h2 class="p-m-0">Manage Users</h2>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 3rem">
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+      </th>
+      <th>Name</th>
+      <th pSortableColumn="username">Username <p-sortIcon field="username"></p-sortIcon></th>
+      <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+      <th pSortableColumn="displayname">Display Name <p-sortIcon field="displayname"></p-sortIcon></th>
+      <th pSortableColumn="created">User Creation Date <p-sortIcon field="created"></p-sortIcon></th>
+      <th>Actions</th>
+      <th></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-user>
+    <tr style="border-bottom: 1px solid #dee2e6;">
+      <td>
+        <p-tableCheckbox [value]="user"></p-tableCheckbox>
+      </td>
+      <td>{{ user.firstname }} {{ user.lastname }}</td>
+      <td>{{ user.username }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.displayname }}</td>
+      <td>{{ user.created | date:'short' }}</td>
+      <td>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-pencil"
+          class="p-button-rounded p-button-raised p-button-warning p-mr-2"
+          style="margin-right: 5%;"
+          (click)="editUser(user)"
+        ></button>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-trash"
+          class="p-button-rounded p-button-raised p-button-danger"
+          (click)="deleteUser(user)"
+        ></button>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="summary">
+    <div class="p-d-flex p-ai-center p-jc-between">
+      There are {{ totalCount }} users total.
+    </div>
+  </ng-template>
+</p-table>
+
+<app-dialog
+  #dialog
+  [userDialog]="userDialog"
+  [user]="user"
+  (close)="hideDialog()"
+  (save)="refreshData()"
+></app-dialog>

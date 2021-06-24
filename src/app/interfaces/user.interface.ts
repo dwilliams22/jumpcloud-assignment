@@ -1,0 +1,48 @@
+import { Mfa } from "./mfa.interface";
+
+export interface User {
+  account_locked?: boolean;
+  account_locked_date?: any;
+  activated?: boolean;
+  addresses?: any[];
+  allow_public_key?: boolean;
+  attributes?: any[];
+  company?: string;
+  costCenter?: string;
+  department?: string;
+  description?: string;
+  disableDeviceMaxLoginAttempts?: boolean;
+  displayname?: string;
+  email: string;
+  employeeIdentifier?: any;
+  employeeType?: string;
+  enable_managed_uid?: boolean;
+  enable_user_portal_multifactor?: boolean;
+  external_dn?: string;
+  external_source_type?: string;
+  externally_managed?: boolean;
+  firstname?: string;
+  jobTitle?: string;
+  lastname?: string;
+  ldap_binding_user?: boolean;
+  location?: string;
+  mfa?: Mfa;
+  middlename?: string;
+  password_never_expires?: boolean;
+  passwordless_sudo?: boolean;
+  phoneNumbers?: any[];
+  samba_service_user?: boolean;
+  ssh_keys?: any[];
+  state?: string;
+  sudo?: boolean;
+  suspended?: boolean;
+  systemUsername?: string;
+  unix_guid?: number;
+  unix_uid?: number;
+  username: string;
+  created?: string;
+  password_expired?: boolean;
+  totp_enabled?: boolean;
+  _id?: string;
+  id?: string;
+}
